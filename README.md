@@ -10,6 +10,9 @@ To contribute to the API:
 
 * Fork the [GitHub repo](https://github.com/SueSmith/galaxy-apis-101).
 * In [Glitch](https://glitch.com/) create a new project, choosing **Import from GitHub**. Enter the URL for your fork of the repo.
+* Setup the following variables in the `env`:
+    * `SECRET` - you'll need to pass this in the auth as `admin_key` from your requests if you need to access admin endpoints, just choose your own for your forked version of the API and include it in your forked template
+    * `PROJECT` - this should just be the project name i.e. `Galaxy APIs 101` (needs to match the template name)
 * Make and test your changes on Glitch.
 * Export your Glitch project to your GitHub fork by choosing **Tools** &gt; **Import and Export** &gt; **Export to GitHub** (you will need to connect your GitHub and Glitch accounts–check out the [Glitch help](https://help-center.glitch.me/help/github/) if you need more info).
 * Once your changes are back on GitHub, open a pull request to merge them into the main repo (tip: include a link to your deployed Glitch app for testing).
