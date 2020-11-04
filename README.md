@@ -21,9 +21,9 @@ To contribute to the API:
 While you're developing your API changes, you'll want to test them in Postman using the project template. You can also contribute to the template. If you're a member of the Postman company team:
 
 * Request access to the Postman team `Galaxy training` workspace.
-* Fork the `Galaxy APIs 101` template.
-* Test your API changes using the template.
-* _If you're contributing to the template, make your changes on your fork and open a pull request in Postman to have them merged into the main template._
+* Fork the `Galaxy APIs 101` collection `training-session` branch–this is the collection as it will be on import, see the parent branch for an example of the collection state on completion by the learner.
+* Test any API changes using the template.
+* _If you're contributing to the template, make your changes on your fork and open a pull request in Postman to have them merged into the main template. Note that you will need to work through the existing API steps in order to try out your own within the complete learning experience._
 
 ___If you're making changes to both the API and template and they need to be deployed in conjunction with one another, flag that up in both your pull requests (on GitHub and in Postman.___
 
