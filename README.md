@@ -20,7 +20,7 @@ To contribute to the API:
 
 While you're developing your API changes, you'll want to test them in Postman using the project template. You can also contribute to the template. If you're a member of the Postman company team:
 
-* Request access to the Postman team `Galaxy training` workspace (create an issue in the [repo](https://github.com/SueSmith/galaxy-apis-101/issues) or ask [Sue](https://github.com/suesmith/).
+* Request access to the Postman team `Galaxy training` workspace (create an issue in the [repo](https://github.com/SueSmith/galaxy-apis-101/issues) or ask [Sue](https://github.com/suesmith/)).
 * Fork the `Galaxy APIs 101` collection `training-session` branch–this is the collection as it will be on import, see the parent branch for an example of the collection state on completion by the learner.
 * Pop the URL for your forked version of the Glitch API into the collection request addresses (later in the session the URL is stored as a var but not initially).
 * Test any API changes you're making to the API using the template.
