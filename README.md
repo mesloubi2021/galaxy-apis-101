@@ -1,8 +1,8 @@
 # Postman Galaxy - APIs 101 Training
 
-[Import the template into Postman]() _tbc_
+This project is designed to support Postman training sessions. The API returns learning content for display inside Postman using the Postman visualizer. The API is complemented by a Postman template to guide learners through the steps to reach learning outcomes for the session. The API is developed and deployed on [Glitch](https://glitch.com/~galaxy-apis-101) however you can deploy it somewhere else if you prefer.
 
-This project is designed to support Postman training sessions. The API returns learning content for display inside Postman using the Postman visualizer. The API is complemented with a Postman template designed to guide learners through the steps to reach learning outcomes for the session. The API is developed and deployed on [Glitch](https://glitch.com/~galaxy-apis-101) however you can deploy it somewhere else if you prefer.
+To try out the template, import it into Postman by searching for "Galaxy APIs 101" in the [network](https://explore.postman.com/). _Note that the template will not go live until the Postman Galaxy Conference in February 2021._
 
 ## Contribution and usage
 
@@ -22,10 +22,11 @@ While you're developing your API changes, you'll want to test them in Postman us
 
 * Request access to the Postman team `Galaxy training` workspace.
 * Fork the `Galaxy APIs 101` collection `training-session` branch–this is the collection as it will be on import, see the parent branch for an example of the collection state on completion by the learner.
-* Test any API changes using the template.
-* _If you're contributing to the template, make your changes on your fork and open a pull request in Postman to have them merged into the main template. Note that you will need to work through the existing API steps in order to try out your own within the complete learning experience._
+* Pop the URL for your forked version of the Glitch API into the collection request addresses (later in the session the URL is stored as a var but not initially).
+* Test any API changes you're making to the API using the template.
+* If you're contributing to the template, make your changes on your template fork and open a pull request inside Postman to have your changes merged into the main template. _Note that you will need to work through the existing API steps in order to try out your own components within the complete learning experience._
 
-___If you're making changes to both the API and template and they need to be deployed in conjunction with one another, flag that up in both your pull requests (on GitHub and in Postman.___
+___If you're making changes to both the API and template and they need to be deployed in conjunction with one another, flag that up in both your pull requests (on GitHub and in Postman).___
 
 ## Credits
 
