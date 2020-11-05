@@ -6,6 +6,8 @@ To try out the template, import it into Postman by searching for "Galaxy APIs 10
 
 ## Contribution and usage
 
+You can contribute to both the API and the template for the session–note that the experience is designed to teach the badge criteria so please keep this in mind with any content changes.
+
 To contribute to the API:
 
 * Fork the [GitHub repo](https://github.com/SueSmith/galaxy-apis-101).
