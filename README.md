@@ -6,7 +6,7 @@ To try out the template, import it into Postman by searching for "Galaxy APIs 10
 
 ## Contribution and usage
 
-You can contribute to both the API and the template for the session–note that the experience is designed to teach the badge criteria so please keep this in mind with any content changes.
+You can contribute to both the API and the template for the session–note that the experience is designed to teach the learning outcomes indicated by the Galaxy APIs 101 badge criteria so please keep this in mind with any content changes. Trainee submissions also need to be testable by automation (learners submit their collection links and we run a script on the collection JSON to ensure that it contains required elements) so any changes to the completed template will need to be accommodated by the submission testing process.
 
 To contribute to the API:
 
