@@ -1,7 +1,7 @@
 /*
-POSTMAN GALAXY API PROFICIENCY
+POSTMAN GALAXY APIs 101
 
-This API works in conjunction with the Postman Galaxy API Proficiency collection in Postman to walk you through API basics.
+This API works in conjunction with the Postman Galaxy APIs 101 collection in Postman to walk you through API basics.
 Import the collection into Postman and send a request to the setup endpoint to begin.
 
 
@@ -90,7 +90,7 @@ var defaultCustomers = [
       faker.address.city() +
       ", " +
       faker.address.country(),
-    type: "Individual",
+    type: "individual",
     orders: 2
   },
   {
@@ -103,7 +103,7 @@ var defaultCustomers = [
       faker.address.city() +
       ", " +
       faker.address.country(),
-    type: "Individual",
+    type: "individual",
     orders: 99
   },
   {
@@ -116,7 +116,7 @@ var defaultCustomers = [
       faker.address.city() +
       ", " +
       faker.address.country(),
-    type: "Organization",
+    type: "organization",
     orders: 10
   }
 ];
@@ -143,10 +143,7 @@ app.get("/", (req, res) => {
         intro:
           "Use the " +
           process.env.PROJECT +
-          " template in Postman to learn API basics! Import the collection in Postman by clicking " +
-          "New > Templates, and searching for '" +
-          process.env.PROJECT +
-          "'. Open the first request in the collection and click Send. " +
+          " template in Postman to learn API basics! " +
           "To see the API code navigate to https://glitch.com/edit/#!/" +
           process.env.PROJECT_DOMAIN +
           " in your web browser!"
@@ -249,8 +246,8 @@ app.get("/begin", (req, res) => {
       next: [
         {
           step:
-            "Take a look at the information above the response area, particularly the **Status**. The status code is a number and short " +
-            "text string indicating the success or failure of the request. This time you got a `200 OK`–hover over it for more info. Soon " +
+            "Take a look at the information above the response area, particularly the **200 OK**. This is the status code–a number and short " +
+            "text string indicating the success or failure of the request. Hover over it for more info. Soon " +
             "we will encounter other codes, including unsuccessful ones.. 😱"
         },
         {
@@ -282,18 +279,18 @@ app.get("/customers", (req, res) => {
     var customers;
     if (
       !req.query.min &&
-      !["Organization", "Individual"].includes(req.query.type)
+      !["organization", "individual"].includes(req.query.type)
     ) {
       res.status(400).json({
         welcome: welcomeMsg,
         tutorial: {
           title: "Your request is incomplete! ✋",
-          intro: "'type' must be `Organization` or `Individual`!",
+          intro: "'type' must be `organization` or `individual`!",
           steps: [
             {
               note:
-                "Open **Params** and enter `Organization` or `Individual` as the **Value** for the parameter with `type` as the **Key**. " +
-                "You will see the query parameter added to the end of the request address e.g. `/customers?type=Individual`."
+                "Open **Params** and enter `organization` or `individual` as the **Value** for the parameter with `type` as the **Key**. " +
+                "You will see the query parameter added to the end of the request address e.g. `/customers?type=individual`."
             }
           ],
           next: [
@@ -367,8 +364,8 @@ app.get("/customers", (req, res) => {
           {
             note:
               "You could have several query parameters, all of which will be appended to your request address by preceding each with" +
-              "`&` e.g. `/customers?type=Organization&min=5`. This is just like what you see in the browser address bar when you " +
-              "visit websites. You can use different types of parameter with your requests as you will see in some of the requests you build next."
+              "`&` e.g. `/customers?type=Organization&min=5`. _This is just like what you see in the browser address bar when you " +
+              "visit websites._ You can use different types of parameter with your requests as you will see in some of the requests you build next."
           },
           {
             note:
@@ -393,9 +390,13 @@ app.get("/customers", (req, res) => {
               "You'll see the value when you hover over the variable reference in the addresss. Notice that the variable reference is the name " +
               "surrounded by double curly braces—when the request sends Postman will replace the variable reference with the value. " +
               "Click **Send** to make sure the request still " +
-              "behaves the same way and scroll back here. Now open the previous request `Begin learning` and add the same variable reference " +
-              "there, replacing the base part of address with `{{training_api}}`—it should now be " +
-              "`{{training_api}}/begin`. Before you move on, click **Save** in both requests."
+              "behaves the same way and scroll back here."
+          },
+          {
+            note:
+              "Now open the previous request `Begin learning` and add the same variable reference there–this time you don't need to create a "+
+              "new var because we already have it added to the collection. Replace the base part of address with `{{training_api}}`—it should "+
+              "now be `{{training_api}}/begin`. Before you move on, click **Save** in both requests."
           }
         ],
         next: [
@@ -405,7 +406,8 @@ app.get("/customers", (req, res) => {
               "choose **Request**, enter `Add customer` as the name, choosing the **" +
               process.env.PROJECT +
               "** collection, and the **Learn APIs** " +
-              "folder. Click **Save to Learn APIs**—the request will open in a new tab so come back here for the address details."
+              "folder. Click **Save to Learn APIs**—the request will open in a new tab so come back here for the address details. _You can also "+
+              "add a new request straight into the folder by clicking the **...** next to the folder name and choosing **Add Request**."
           },
           {
             step:
@@ -429,7 +431,7 @@ app.get("/customers", (req, res) => {
         title:
           "You sent a request to retrieve all customers in the database! 🎉",
         intro:
-          "The demo API we're using stores a set of customer records. We're going to query and filter customers, add new customers, update " +
+          "The demo API we're using stores a set of customer records. We're going to query and filter customers, add new customers, update, " +
           "and delete customers.",
         steps: [
           {
@@ -457,14 +459,14 @@ app.get("/customers", (req, res) => {
         next: [
           {
             step:
-              "This request retrieved all customers, but you can also filter the customers using parameters–typically you would do this " +
+              "This request retrieved all customers, but you can also filter the customers–typically you would do this " +
               "using **Parameters**. Parameters allow you to supply extra information to make a more specific request. " +
               "Let's say we only want to view customers of a particular type."
           },
           {
             step:
-              "Open **Params** and enter a new **Query** parameter, with `type` as the **Key** and `Organization` or `Individual` as " +
-              "the **Value**. You will see the query parameter added to the end of the request address e.g. `/customers?type=Individual`. " +
+              "Open **Params** and enter a new **Query** parameter, with `type` as the **Key** and `organization` or `individual` as " +
+              "the **Value**. You will see the query parameter added to the end of the request address e.g. `/customers?type=individual`. " +
               "Click **Send** again."
           }
         ]
@@ -496,20 +498,19 @@ app.post("/customer", (req, res) => {
             note:
               "Remember that the status code you received for the successful `GET` requests was `200 OK`. This time you got a " +
               "`401 Unauthorized` code. Hover over it for more detail. _If the API has been well designed, the error response should at least help you " +
-              "to troubleshoot and figure out next steps._"
+              "to troubleshoot and figure out next steps, but sadly this is not always the case!_ 😬"
           },
           {
             note:
-              "When you send new data to an API, you will typically need to authorize your requests to secure the data source. There are many ways " +
-              "to secure access to APIs, and the method chosen by the API provider will determine what you need to do to make an authorized " +
-              "request. This API uses API Key auth, which will require sending a key value pair (a key name, and a text string value) in the " +
-              "**Header** of the request."
+              "When you send new data to an API, you will typically need to authorize your requests to keep the data source secure. The API "+
+              "provider will determine what auth method you need to make a successful request. This API uses API Key auth, which will require "+
+              "sending a key value pair (a key name, and a text string value) in the **Header** of the request."
           },
           {
             note:
               "> &#9432; Each API request has a header and a body—so does the response. The header stores metadata—data about the data " +
               "included in the body, for example what format it's in, the length of the content, and so on—information that helps the " +
-              "**Client** processing the body data."
+              "**Client** processing the body data (in this case the client is Postman)."
           },
           {
             note:
@@ -518,7 +519,8 @@ app.post("/customer", (req, res) => {
               "collection level—that way we can authorize all requests in the collection with the same details."
           },
           {
-            note: "We're going to store the auth " +
+            note:
+              "We're going to store the auth " +
               "info in a variable—this helps minimize visibility of what would normally be sensitive credentials. Select the **" +
               process.env.PROJECT +
               "** collection and in **Variables** add a new entry with `email_key` in the **Variable** column, and " +
@@ -578,19 +580,19 @@ app.post("/customer", (req, res) => {
         welcome: welcomeMsg,
         tutorial: {
           title: "You added a new customer! 💸",
-          intro: "Your new customer was added to the database.",
+          intro: "Your new customer was added to the database. 🤑",
           steps: [
             {
               note:
-                "Go back into the `Get customers` request, and select **Inherit auth from parent** in the **Authorization** "+
-                "tab. The API lets you access the default customers plus any customers you add with your own auth details. "+
-                "Uncheck any parameters you had set so that you see the full list of customers and **Send**. You should see a new customer "+
+                "Go back into the `Get customers` request, and select **Inherit auth from parent** in the **Authorization** " +
+                "tab. The API lets you access the default customers plus any customers you add with your own auth details. " +
+                "Uncheck any parameters you had set so that you see the full list of customers and **Send**. You should see a new customer " +
                 "with your email address as `admin`."
             },
             {
               note:
-                "You've added a new customer, but what if you need to update an existing customer record. Let's do that next. When you update "+
-                "an existing record, you will typically use either a `PUT` or a `PATCH` request, to identify the customer you want to "+
+                "You've added a new customer, but what if you need to update an existing customer record? Let's do that next. When you update " +
+                "an existing record, you will typically use either a `PUT` or a `PATCH` request, to identify the customer you want to " +
                 "update, and provide the info you want to update the record with."
             }
           ],
@@ -598,8 +600,8 @@ app.post("/customer", (req, res) => {
             {
               step:
                 "**Save** your requests, then create another new one inside the **Learn APIs** folder using the **New** button. " +
-                "Give it the name `Update customer` and when it opens select `PUT` method. The address is going to be the same as this "+
-                "request (the API can distinguish the operation based on the method you send), so enter `{{training_api}}/customer`, "+
+                "Give it the name `Update customer` and when it opens select `PUT` method. The address is going to be the same as this " +
+                "request (the API can distinguish the operation based on the method you send), so enter `{{training_api}}/customer`, " +
                 "and click **Send**."
             }
           ]
@@ -621,14 +623,14 @@ app.post("/customer", (req, res) => {
               raw_data: {
                 name: "{{$randomFullName}}",
                 address: "{{$randomStreetAddress}}",
-                type: "Individual"
+                type: "individual"
               }
             },
             {
               note:
-                "You will notice that there are a couple of variable references in the data. These use dynamic variables—Postman will "+
-                "generate a random name and address when you send the request, which is handy when you don't have real data. The API "+
-                "will autofill the id, admin, and type properties for the new customer."
+                "You will notice that there are a couple of variable references in the data. These use dynamic variables—Postman will " +
+                "generate a random name and address when you send the request, which is handy when you don't have real data. The API " +
+                "will autofill the id, admin, and type properties for the new customer, so we don't need to provide them in the request body."
             }
           ],
           next: [
@@ -699,14 +701,15 @@ app.put("/customer", function(req, res) {
       welcome: welcomeMsg,
       tutorial: {
         title: "Your request is missing some info! 📭",
-        intro: "In order to update a customer you need to provide the ID for the customer you want to update. Check out the status code "+
+        intro:
+          "In order to update a customer you need to provide the ID for the customer you want to update. Check out the status code " +
           "again–this time it's a `400 Bad Request`. 🙈",
         steps: [
           {
             note:
-            "You can only update customers you added to the database. To get a valid ID, pop back into the `Get customers` request and "+
-            "copy the `id` value from the customer record you added and come back here (it'll have your email address as `admin`)–it will "+
-            "look something like this: `aBcDe12345`."
+              "You can only update customers you added to the database. To get a valid ID, pop back into the `Get customers` request and " +
+              "copy the `id` value from the customer record you added and come back here (it'll have your email address as `admin`)–it will " +
+              "look something like this: `aBcDe12345`."
           },
           {
             note:
@@ -728,12 +731,12 @@ app.put("/customer", function(req, res) {
       tutorial: {
         title: "Your request is incomplete! ✋",
         intro:
-          "We've specified the customer we want to update–now we need to provide the data we want to update the customer record with. "+
+          "We've specified the customer we want to update–now we need to provide the data we want to update the customer record with. " +
           "Let's update the address.",
         steps: [
           {
             note:
-              "We'll use JSON again to provide the new address. "+
+              "We'll use JSON again to provide the new address. " +
               "In **Body** select **raw** and choose **JSON** instead of `Text` in the drop-down list. Enter the following " +
               "including the enclosing curly braces:",
             raw_data: {
@@ -741,8 +744,8 @@ app.put("/customer", function(req, res) {
             }
           },
           {
-            note: 
-            "We're using randomly generated dynamic data again for the address."
+            note:
+              "We're using randomly generated dynamic data again for the address."
           },
           {
             note:
@@ -763,11 +766,7 @@ app.put("/customer", function(req, res) {
       .get("customers")
       .find({ id: req.query.cust_id })
       .value();
-    if (
-      updateCust &&
-      apiSecret != "postman" &&
-      updateCust.admin == apiSecret
-    ) {
+    if (updateCust && apiSecret != "postman" && updateCust.admin == apiSecret) {
       db.get("customers")
         .find({ id: req.query.cust_id })
         .assign({
@@ -788,7 +787,7 @@ app.put("/customer", function(req, res) {
             },
             {
               note:
-                "We've updated a customer, but let's now try deleting one. This time we'll use a **Path** parameter, which lets us build "+
+                "We've updated a customer, but let's now try deleting one. This time we'll use a **Path** parameter, which lets us build " +
                 "data into the request address."
             }
           ],
@@ -796,10 +795,10 @@ app.put("/customer", function(req, res) {
             {
               step:
                 "Create a final request, this time naming it `Remove customer`. When it opens set the method to `DELETE`, and " +
-                "the URL to `{{training_api}}/customer/:cust_id` but don't send it yet. This request includes a path parameter with "+
+                "the URL to `{{training_api}}/customer/:cust_id` but don't send it yet. This request includes a path parameter with " +
                 "`/:cust_id` at the end of the request address—open **Params** and as the value " +
                 "for the `cust_id` parameter, enter the `id` of a customer you added like you did for the `PUT` request. " +
-                "Copy the `id` from the response in the `Get customers` request (or the `PUT`) then click **Send**."
+                "You can copy the `id` from the response in the `Get customers` request (or the `PUT`) then click **Send**."
             }
           ]
         }
@@ -897,7 +896,7 @@ app.delete("/customer/:cust_id", function(req, res) {
         welcome: welcomeMsg,
         tutorial: {
           title: "You deleted a customer! 🗑️",
-          intro: "Your customer was removed from the database.",
+          intro: "Your customer was removed from the database. 🧹",
           steps: [
             {
               note:
@@ -912,26 +911,29 @@ app.delete("/customer/:cust_id", function(req, res) {
           next: [
             {
               step:
-                "You can submit your completed collection to receive your Galaxy API 101 badge! We'll carry on in the session looking at "+
-                "other APIs and topics to continue your API learning—if you haven't managed to complete all of the requests yet you can still "+
-                "get support from the team until the end of the session (and after it)."
+                "You can submit your completed collection to receive your Galaxy API 101 badge! We'll carry on in the session looking at " +
+                "other APIs and topics to continue your API learning—if you haven't managed to complete all of the requests yet you can still " +
+                "get support from the team until the end of the session via the event chat (and after it on the Postman forum "+
+                "community.postman.com–use the `training` tag)."
             },
             {
               step:
-                "When you are ready, carry out the following steps to check your collection for completeness. Select the "+process.env.PROJECT+
-                " collection and click **Share** &gt; **Get public link** &gt; get or update the public link (_every time you make a change to "+
-                "the requests you'll need to regenerate the link_), and copy the URL. Open the request final folder in the collection: "+
-                "`Check progress` &gt; "+
+                "When you are ready, carry out the following steps to check your collection for completeness. Make sure all of your requests are "+
+                "saved. Select the " +
+                process.env.PROJECT +
+                " collection and click **Share** &gt; **Get public link** &gt; get or update the public link (_every time you make a change to " +
+                "the requests you'll need to regenerate the link_), and copy the URL. Open the request in the final folder in the collection: " +
+                "`Check progress` &gt; " +
                 "`Collection status` and paste your collection link in as the request address. Click **Send** and open the **Test Results**."
             },
             {
               step:
-                "Once your tests are all passing, include your collection link in this form to get your badge! _link tbc_"
+                "Once your tests are all passing, include your collection link in this form to get your badge and swag! **bit.ly/galaxy-101**"
             },
             {
               step:
-                "If one or more of your tests are failing, check back through your requests to make sure you completed all of the steps. "+
-                "Ask for support in the session chat or at the help desk!"
+                "If one or more of your tests are failing, check back through your requests to make sure you completed all of the steps. " +
+                "Ask for support in the session chat or at community.postman.com/tag/training!"
             }
           ]
         }
@@ -946,7 +948,7 @@ app.delete("/customer/:cust_id", function(req, res) {
           steps: [
             {
               note:
-                "Your request address should end `:cust_id`. In **Params** in the `cust_id` row, and the `id` values from a customer "+
+                "Your request address should end `:cust_id`. In **Params** in the `cust_id` row, and the `id` values from a customer " +
                 " you added as the **Value**."
             }
           ],
