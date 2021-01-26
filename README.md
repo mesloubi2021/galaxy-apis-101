@@ -1,6 +1,6 @@
 # Postman Galaxy - APIs 101 Training
 
-[Import the template into Postman]() _tbc_
+Fork the collection from the Postman workspace shared during the session. Open the first request in Postman and hit Send!
 
 ## Credits
 
