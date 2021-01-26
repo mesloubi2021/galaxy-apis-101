@@ -984,6 +984,7 @@ app.get("/reset", (req, res) => {
         .push({
           id: cust.id,
           admin: cust.admin,
+          adminUid: cust.adminUid,
           name: cust.name,
           address: cust.address,
           type: cust.type,
