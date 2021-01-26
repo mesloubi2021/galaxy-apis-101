@@ -2,7 +2,7 @@
 POSTMAN GALAXY APIs 101
 
 This API works in conjunction with the Postman Galaxy APIs 101 collection in Postman to walk you through API basics.
-Import the collection into Postman and send a request to the setup endpoint to begin.
+Import the collection into Postman from the workspace shared during the session and send a request to the setup endpoint to begin.
 
 
 This Glitch app is based on hello-express and low-db.
@@ -83,6 +83,7 @@ var defaultCustomers = [
   {
     id: shortid.generate(),
     admin: "postman",
+    adminuid: "abc123",
     name: "Ellen Ripley",
     address:
       faker.address.streetAddress() +
@@ -96,6 +97,7 @@ var defaultCustomers = [
   {
     id: shortid.generate(),
     admin: "postman",
+    adminuid: "abc123",
     name: "Thomas Kane",
     address:
       faker.address.streetAddress() +
@@ -109,6 +111,7 @@ var defaultCustomers = [
   {
     id: shortid.generate(),
     admin: "postman",
+    adminuid: "abc123",
     name: "USCSS Nostromo",
     address:
       faker.address.streetAddress() +
@@ -143,7 +146,7 @@ app.get("/", (req, res) => {
         intro:
           "Use the " +
           process.env.PROJECT +
-          " template in Postman to learn API basics! " +
+          " collection in Postman to learn API basics! " +
           "To see the API code navigate to https://glitch.com/edit/#!/" +
           process.env.PROJECT_DOMAIN +
           " in your web browser!"
@@ -194,7 +197,7 @@ var invalidMsg = {
 };
 
 //intro
-app.get("/begin", (req, res) => {
+app.get("/begin", (req, res) => { 
   var newDate = new Date();
   db.get("calls")
     .push({
@@ -261,7 +264,7 @@ app.get("/begin", (req, res) => {
 });
 
 app.get("/customers", (req, res) => {
-  //  console.log(db.get());
+  
   const apiSecret = req.get("csm_key");
   var newDate = new Date();
   db.get("calls")
@@ -475,7 +478,7 @@ app.get("/customers", (req, res) => {
   }
 });
 
-app.post("/customer", (req, res) => {
+app.post("/customer", (req, res) => { 
   const apiSecret = req.get("csm_key");
   var newDate = new Date();
   db.get("calls")
@@ -485,7 +488,6 @@ app.post("/customer", (req, res) => {
       what: req.body.name + " " + apiSecret
     })
     .write();
-  console.log(apiSecret);
   if (!apiSecret || apiSecret.length < 1 || apiSecret.startsWith("{")) {
     res.status(401).json({
       welcome: welcomeMsg,
@@ -570,6 +572,7 @@ app.post("/customer", (req, res) => {
         .push({
           id: shortid.generate(),
           admin: apiSecret,
+          adminUid: req.get('user-id'),
           name: req.body.name,
           address: req.body.address,
           type: req.body.type,
@@ -765,8 +768,8 @@ app.put("/customer", function(req, res) {
     var updateCust = db
       .get("customers")
       .find({ id: req.query.cust_id })
-      .value();
-    if (updateCust && apiSecret != "postman" && updateCust.admin == apiSecret) {
+      .value(); 
+    if (updateCust && apiSecret != "postman" && updateCust.admin == apiSecret && updateCust.adminUid == req.get('user-id')) {
       db.get("customers")
         .find({ id: req.query.cust_id })
         .assign({
@@ -887,8 +890,8 @@ app.delete("/customer/:cust_id", function(req, res) {
     var cust = db
       .get("customers")
       .find({ id: req.params.cust_id })
-      .value();
-    if (cust && apiSecret != "postman" && cust.admin == apiSecret) {
+      .value(); 
+    if (cust && apiSecret != "postman" && cust.admin == apiSecret && cust.adminUid == req.get('user-id')) {
       db.get("customers")
         .remove({ id: req.params.cust_id })
         .write();
