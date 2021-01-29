@@ -931,7 +931,7 @@ app.delete("/customer/:cust_id", function(req, res) {
             },
             {
               step:
-                "Once your tests are all passing, include your collection link in this form to get your badge and swag! **bit.ly/galaxy-101**"
+                "Once your tests are all passing, include your collection link in this form to get your badge and swag! **bit.ly/submit-apis-101**"
             },
             {
               step:
