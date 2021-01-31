@@ -83,7 +83,7 @@ var defaultCustomers = [
   {
     id: shortid.generate(),
     admin: "postman",
-    adminuid: "abc123",
+    adminUid: "abc123",
     name: "Ellen Ripley",
     address:
       faker.address.streetAddress() +
@@ -97,7 +97,7 @@ var defaultCustomers = [
   {
     id: shortid.generate(),
     admin: "postman",
-    adminuid: "abc123",
+    adminUid: "abc123",
     name: "Thomas Kane",
     address:
       faker.address.streetAddress() +
@@ -111,7 +111,7 @@ var defaultCustomers = [
   {
     id: shortid.generate(),
     admin: "postman",
-    adminuid: "abc123",
+    adminUid: "abc123",
     name: "USCSS Nostromo",
     address:
       faker.address.streetAddress() +
@@ -142,30 +142,22 @@ app.get("/", (req, res) => {
     res.status(200).json({
       welcome: welcomeMsg,
       tutorial: {
-        title: process.env.PROJECT,
+        title: "Galaxy APIs 101",
         intro:
-          "Use the " +
-          process.env.PROJECT +
-          " collection in Postman to learn API basics! " +
-          "To see the API code navigate to https://glitch.com/edit/#!/" +
-          process.env.PROJECT_DOMAIN +
-          " in your web browser!"
+          "Use the Galaxy APIs 101 collection in Postman to learn API basics! " +
+          "To see the API code navigate to https://glitch.com/edit/#!/galaxy-apis-101 in your web browser!"
       }
     });
   else
     res.send(
-      "<h1>" +
-        process.env.PROJECT +
-        "</h1><p>Oh, hi! There's not much to see here - view the code instead:</p>" +
+      "<h1>Galaxy APIs 101</h1><p>Oh, hi! There's not much to see here - view the code instead:</p>" +
         '<script src="https://button.glitch.me/button.js" data-style="glitch"></script><div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>'
     );
 });
 
 //generic welcome message
 var welcomeMsg =
-  "You're using the " +
-  process.env.PROJECT +
-  " course! Check out the 'data' object below to see the values returned by this API request. " +
+  "You're using the Galaxy APIs 101 course! Check out the 'data' object below to see the values returned by this API request. " +
   "Click **Visualize** to see the 'tutorial' guiding you through next steps - do this for every request in the collection!";
 //admin unauthorized
 var unauthorizedMsg = {
@@ -205,14 +197,14 @@ app.get("/begin", (req, res) => {
       where: "GET /begin",
       what: req.get("csm_key")
     })
-    .write();
+    .write(); 
   res.status(200).json({
     welcome: welcomeMsg,
     data: {
-      course: process.env.PROJECT
+      course: "Galaxy APIs 101"
     },
     tutorial: {
-      title: "Welcome to " + process.env.PROJECT + "! 🚀",
+      title: "Welcome to APIs 101 training! 🚀",
       intro:
         "You sent a successful request to the API! Throughout this course you will send requests, carry out edits in Postman, and the API " +
         "will respond with information that will help you complete each step.",
@@ -222,14 +214,14 @@ app.get("/begin", (req, res) => {
             "Take a minute to look at the request you sent. This request used the `GET` method, which is typically for retrieving data. " +
             "You sent the request to an address, which is a URL, just like when you open a web page. The address includes a **base** URL " +
             "`" +
-            process.env.PROJECT_DOMAIN +
-            ".glitch.me` and a **path** `/begin`."
+            req.host +
+            "` and a **path** `/begin`."
         },
         {
           note:
             "The request you sent to the training API received a response including this data, which is structured in JSON:",
           raw_data: {
-            course: process.env.PROJECT
+            course: "Galaxy APIs 101"
           }
         },
         {
@@ -240,9 +232,7 @@ app.get("/begin", (req, res) => {
         {
           note:
             "Although we will be dealing with JSON data, you do not need to know the syntax. In this case `course` is a " +
-            "**Property** which has `" +
-            process.env.PROJECT +
-            "` as its **Value**. The property is inside an **Object**, indicated by the curly " +
+            "**Property** which has `Galaxy APIs 101` as its **Value**. The property is inside an **Object**, indicated by the curly " +
             "braces. `{}`."
         }
       ],
@@ -282,7 +272,7 @@ app.get("/customers", (req, res) => {
     var customers;
     if (
       !req.query.min &&
-      !["organization", "individual"].includes(req.query.type)
+      !["organization", "individual"].includes(req.query.type.toLowerCase())
     ) {
       res.status(400).json({
         welcome: welcomeMsg,
@@ -328,7 +318,7 @@ app.get("/customers", (req, res) => {
     } else if (req.query.type) {
       customers = db
         .get("customers")
-        .filter(o => o.type === req.query.type)
+        .filter(o => o.type === req.query.type.toLowerCase())
         .filter(o => o.orders >= minimum)
         .filter(o => o.admin === "postman" || o.admin === apiSecret)
         .value();
@@ -378,14 +368,10 @@ app.get("/customers", (req, res) => {
           },
           {
             note:
-              "Select everything before the path `/` in the address bar: `" +
-              process.env.PROJECT_DOMAIN +
-              ".glitch.me`. Click **Set as variable** &gt; **Set as a new variable**. Enter `training_api` as the " +
+              "Select everything before the path `/` in the address bar: `"+req.host+"`. Click **Set as variable** &gt; **Set as a new variable**. Enter `training_api` as the " +
               "**Name** with `" +
-              process.env.PROJECT_DOMAIN +
-              ".glitch.me` as the **Value**. Select **Collection** for the **Scope**, making sure the **" +
-              process.env.PROJECT +
-              "** collection " +
+              req.host +
+              ".glitch.me` as the **Value**. Select **Collection** for the **Scope**, making sure the **Galaxy APIs 101** collection " +
               "is selected. Click **Set variable**."
           },
           {
@@ -406,11 +392,8 @@ app.get("/customers", (req, res) => {
           {
             step:
               "So far we've retrieved data from the API, but what if we want to add a new customer? Let's add a request to do that. Click **New**, " +
-              "choose **Request**, enter `Add customer` as the name, choosing the **" +
-              process.env.PROJECT +
-              "** collection, and the **Learn APIs** " +
-              "folder. Click **Save to Learn APIs**—the request will open in a new tab so come back here for the address details. _You can also "+
-              "add a new request straight into the folder by clicking the **...** next to the folder name and choosing **Add Request**."
+              "choose **Request**, enter `Add customer` as the name, choosing the **Galaxy APIs 101** collection, and the **Learn APIs** " +
+              "folder. Click **Save to Learn APIs**—the request will open in a new tab so come back here for the address details."
           },
           {
             step:
@@ -523,10 +506,8 @@ app.post("/customer", (req, res) => {
           {
             note:
               "We're going to store the auth " +
-              "info in a variable—this helps minimize visibility of what would normally be sensitive credentials. Select the **" +
-              process.env.PROJECT +
-              "** collection and in **Variables** add a new entry with `email_key` in the **Variable** column, and " +
-              "your email address as the value (both fields)."
+              "info in a variable—this helps minimize visibility of what would normally be sensitive credentials. Select the **Galaxy APIs 101** collection and in **Variables** add a new entry with `email_key` in the **Variable** column, and " +
+              "your email address as the value (both fields)–**Save**."
           },
           {
             note:
@@ -638,7 +619,7 @@ app.post("/customer", (req, res) => {
           ],
           next: [
             {
-              step: "With your body data in place, click **Send** again."
+              step: "With your body data in place, **Save** the request, and click **Send** again."
             }
           ]
         }
@@ -914,20 +895,21 @@ app.delete("/customer/:cust_id", function(req, res) {
           next: [
             {
               step:
-                "You can submit your completed collection to receive your Galaxy API 101 badge! We'll carry on in the session looking at " +
+                "You can submit your completed collection to receive your APIs 101 badge! We'll carry on in the session looking at " +
                 "other APIs and topics to continue your API learning—if you haven't managed to complete all of the requests yet you can still " +
                 "get support from the team until the end of the session via the event chat (and after it on the Postman forum "+
-                "community.postman.com–use the `training` tag)."
+                "community.postman.com–use the `training` category)."
             },
             {
               step:
                 "When you are ready, carry out the following steps to check your collection for completeness. Make sure all of your requests are "+
-                "saved. Select the " +
-                process.env.PROJECT +
-                " collection and click **Share** &gt; **Get public link** &gt; get or update the public link (_every time you make a change to " +
-                "the requests you'll need to regenerate the link_), and copy the URL. Open the request in the final folder in the collection: " +
-                "`Check progress` &gt; " +
+                "saved. Select the **Galaxy APIs 101** collection and click **Share** &gt; **Get public link** &gt; get or update the public link, "+
+                "and copy the URL. Open the request in the final folder in the collection: `Check progress` &gt; " +
                 "`Collection status` and paste your collection link in as the request address. Click **Send** and open the **Test Results**."
+            },
+            {
+              step: "> &#9432; Every time you make a change to the requests you'll need to update the collection link via **Share** before testing or"+
+                " submitting it."
             },
             {
               step:
@@ -936,7 +918,7 @@ app.delete("/customer/:cust_id", function(req, res) {
             {
               step:
                 "If one or more of your tests are failing, check back through your requests to make sure you completed all of the steps. " +
-                "Ask for support in the session chat or at community.postman.com/tag/training!"
+                "Ask for support in the session chat or at *community.postman.com/tag/training*!"
             }
           ]
         }
